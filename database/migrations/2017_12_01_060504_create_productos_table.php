@@ -13,8 +13,10 @@ class CreateProductosTable extends Migration
      */
     public function up()
     {
-        Schema::table('productos', function (Blueprint $table) {
-            //
+        Schema::create('productos', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nombre')->unique();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +27,6 @@ class CreateProductosTable extends Migration
      */
     public function down()
     {
-        Schema::table('productos', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('productos');
     }
 }

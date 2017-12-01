@@ -13,8 +13,18 @@ class CreateSeguimientosTable extends Migration
      */
     public function up()
     {
-        Schema::table('seguimientos', function (Blueprint $table) {
-            //
+        Schema::create('seguimientos', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('id_user');
+            $table->integer('id_envio');
+
+            $table->foreign('fk_seguimientos_user')
+                ->references('id')
+                ->on('users');
+            $table->foreign('fk_seguimientos_envios')
+                ->references('id')
+                ->on('envios');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +35,6 @@ class CreateSeguimientosTable extends Migration
      */
     public function down()
     {
-        Schema::table('seguimientos', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('seguimientos');
     }
 }

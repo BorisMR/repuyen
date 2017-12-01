@@ -13,8 +13,12 @@ class CreateEnviosTable extends Migration
      */
     public function up()
     {
-        Schema::table('envios', function (Blueprint $table) {
-            //
+        Schema::create('envios', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('id_producto');
+            $table->integer('id_seguimiento');
+            $table->integer('id_producto_version');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ class CreateEnviosTable extends Migration
      */
     public function down()
     {
-        Schema::table('envios', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('envios');
     }
 }
