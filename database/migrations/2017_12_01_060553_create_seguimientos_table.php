@@ -16,15 +16,18 @@ class CreateSeguimientosTable extends Migration
         Schema::create('seguimientos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_user');
-            $table->integer('id_envio');
+            $table->integer('id_envio')->unsigned();
+            $table->timestamps();
 
-            $table->foreign('fk_seguimientos_user')
+            //todo: crear claves foraneas en proxima migracion
+            /*
+            $table->foreign('fk_seguimientos_users')
                 ->references('id')
                 ->on('users');
             $table->foreign('fk_seguimientos_envios')
                 ->references('id')
                 ->on('envios');
-            $table->timestamps();
+             */
         });
     }
 
