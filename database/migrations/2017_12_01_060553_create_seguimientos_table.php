@@ -28,6 +28,6 @@ class CreateSeguimientosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seguimientos');
+        Schema::drop('seguimientos');
     }
 }

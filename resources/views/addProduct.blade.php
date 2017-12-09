@@ -5,10 +5,13 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Dashboard</div>
+                    <div class="panel-heading">
+                        Control de Productos
+                        <div class="text-right"><a href="productos">Lista de Productos</a></div>
+                    </div>
                     @guest
 
-                    Usted no se encuentra logueado
+                    <h4>Usted No Se Encuentra Registrado</h4>
 
                     @else
                     <div class="panel-body">
@@ -18,9 +21,21 @@
                             </div>
                         @endif
 
-                        <form method="POST" action="producto/">
-                            <input name="nombre" type="text">
-                            <button type="submit">Agregar</button>
+                        <form class="form-horizontal" method="post" action="producto">
+                            {{ csrf_field() }}
+                            <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
+                                <label for="name" class="col-md-4 control-label">Nombre</label>
+                                <div class="col-md-6">
+                                    <input id="nombre" type="text" class="form-control" name="nombre" value="{{ old('nombre') }}" required autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        Agregar
+                                    </button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                     @endguest

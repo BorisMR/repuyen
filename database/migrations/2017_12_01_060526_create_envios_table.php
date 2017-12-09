@@ -29,6 +29,6 @@ class CreateEnviosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('envios');
+        Schema::drop('envios');
     }
 }

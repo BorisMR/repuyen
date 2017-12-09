@@ -4,32 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class ProductoController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $productos = Producto::all();
 
-        return response()->json($productos);
+        //return response()->json($productos);
+
+        return view('listProducts')->with("productos", $productos);
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $producto = Producto::where('nombre', $request->input('nombre'))->first();
 
-        if($producto->nombre == $request->input('nombre')) {
+        if(!is_null($producto)) {
             return response()->json([
                 'errors' => [
                     'code' => 409,
@@ -38,34 +36,23 @@ class ProductoController extends Controller
             ], 409);
         }
 
-        $producto = Producto::create([
-            'name' => $request->input('nombre')
-        ]);
+        $producto = new Producto;
+
+        $producto->nombre = $request->input('nombre');
+
+        $producto->save();
 
         return response()->json($producto);
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $producto = Producto::find($id);
 
-        if (!$producto) {
-            return response()->json([], 404);
-        }
-
-        return response()->json($producto);
-    }
-
-    public function findByName(Request $request){
-        $producto = Producto::where('nombre', $request->input('nombre'))->first();
-
-        if (!$producto) {
+        if (is_null($producto)) {
             return response()->json([], 404);
         }
 
@@ -74,10 +61,6 @@ class ProductoController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
@@ -86,9 +69,6 @@ class ProductoController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
@@ -98,13 +78,13 @@ class ProductoController extends Controller
             return response()->json([], 404);
         }
 
-        Producto::destroy($producto->id);
+        $producto->delete();
+
+        return Redirect::to('productos');
     }
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -113,12 +93,21 @@ class ProductoController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         //
     }
+
+    /*NOT USED
+    public function findByName(Request $request){
+        $producto = Producto::where('nombre', $request->input('nombre'))->first();
+
+        if (is_null($producto)) {
+            return response()->json([], 404);
+        }
+
+        return response()->json($producto);
+    }
+    */
 }
