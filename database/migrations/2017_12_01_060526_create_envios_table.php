@@ -17,7 +17,7 @@ class CreateEnviosTable extends Migration
             $table->increments('id');
             $table->integer('id_producto');
             $table->integer('id_seguimiento');
-            $table->integer('id_producto_version');
+            $table->integer('id_status');
             $table->timestamps();
         });
     }

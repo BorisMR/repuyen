@@ -62,6 +62,16 @@ class ProductoController extends Controller
         return response()->json($producto);
     }
 
+    public function findByName(Request $request){
+        $producto = Producto::where('nombre', $request->input('nombre'))->first();
+
+        if (!$producto) {
+            return response()->json([], 404);
+        }
+
+        return response()->json($producto);
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -98,7 +108,7 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        //
+        return view('addProduct');
     }
 
     /**

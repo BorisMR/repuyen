@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <a href="producto">Productos</a>
                 </div>
             </div>
         </div>

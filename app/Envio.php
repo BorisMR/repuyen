@@ -11,7 +11,7 @@ class Envio extends Model
     protected $fillable = [
         'id_producto',
         'id_seguimiento',
-        'id_producto_version'
+        'id_status'
     ];
 
     public function productos(){

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Envio;
+use App\Producto;
+use App\Seguimiento;
 use Illuminate\Http\Request;
 
 class EnvioController extends Controller
@@ -13,7 +16,9 @@ class EnvioController extends Controller
      */
     public function index()
     {
-        //
+        $envios = Envio::all();
+
+        return response()->json($envios);
     }
 
     /**
@@ -34,7 +39,32 @@ class EnvioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $id_producto = $request->input('idProducto');
+        $id_seguimiento = $request->input('idSeguimiento');
+
+        $producto = Producto::find($id_producto);
+
+        if(!$producto){
+            return response()->json([], 404);
+        }
+
+        $seguimiento = Seguimiento::find($id_seguimiento);
+
+        if(!is_null($seguimiento)){
+            $envio = Envio::create([
+                'id_producto' => $request->input('idProducto'),
+                'id_seguimiento' => $request->input('idSeguimiento'),
+                'status' => $request->input('')
+            ]);
+        }else{
+            $envio = Envio::create([
+                'id_producto' => $request->input('idProducto'),
+                'id_seguimiento' => $request->input(''),
+                'id_status' => 0 //definir estados
+            ]);
+        }
+
+        return response()->json($envio);
     }
 
     /**
@@ -45,7 +75,13 @@ class EnvioController extends Controller
      */
     public function show($id)
     {
-        //
+        $envio = Envio::find($id);
+
+        if (!$envio) {
+            return response()->json([], 404);
+        }
+
+        return response()->json($envio);
     }
 
     /**

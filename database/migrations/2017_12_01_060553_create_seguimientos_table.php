@@ -18,16 +18,6 @@ class CreateSeguimientosTable extends Migration
             $table->integer('id_user');
             $table->integer('id_envio')->unsigned();
             $table->timestamps();
-
-            //todo: crear claves foraneas en proxima migracion
-            /*
-            $table->foreign('fk_seguimientos_users')
-                ->references('id')
-                ->on('users');
-            $table->foreign('fk_seguimientos_envios')
-                ->references('id')
-                ->on('envios');
-             */
         });
     }
 
