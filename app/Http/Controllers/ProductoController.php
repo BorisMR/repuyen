@@ -25,7 +25,8 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        $producto = Producto::where('nombre', $request->input('nombre'))->first();
+        $nombre = $request->input('nombre');
+        $producto = Producto::where('nombre', $nombre)->first();
 
         if(!is_null($producto)) {
             return response()->json([
@@ -38,7 +39,7 @@ class ProductoController extends Controller
 
         $producto = new Producto;
 
-        $producto->nombre = $request->input('nombre');
+        $producto->nombre = $nombre;
 
         $producto->save();
 

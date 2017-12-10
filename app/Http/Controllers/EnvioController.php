@@ -6,41 +6,36 @@ use App\Envio;
 use App\Producto;
 use App\Seguimiento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class EnvioController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $envios = Envio::all();
 
-        return response()->json($envios);
+        return view('listEnvios')->with("envios", $envios);
     }
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('addEnvio');
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $id_producto = $request->input('idProducto');
         $id_seguimiento = $request->input('idSeguimiento');
+        $status = $request->input('status');
 
         $producto = Producto::find($id_producto);
 
@@ -48,36 +43,25 @@ class EnvioController extends Controller
             return response()->json([], 404);
         }
 
-        $seguimiento = Seguimiento::find($id_seguimiento);
+        $envio = new Envio;
 
-        if(!is_null($seguimiento)){
-            $envio = Envio::create([
-                'id_producto' => $request->input('idProducto'),
-                'id_seguimiento' => $request->input('idSeguimiento'),
-                'status' => $request->input('')
-            ]);
-        }else{
-            $envio = Envio::create([
-                'id_producto' => $request->input('idProducto'),
-                'id_seguimiento' => $request->input(''),
-                'id_status' => 0 //definir estados
-            ]);
-        }
+        $envio->id_producto = $id_producto;
+        $envio->id_seguimiento = $id_seguimiento;
+        $envio->status = empty($status) ? 0 : $status;
+
+        $envio->save();
 
         return response()->json($envio);
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $envio = Envio::find($id);
 
-        if (!$envio) {
+        if (is_null($envio)) {
             return response()->json([], 404);
         }
 
@@ -86,9 +70,6 @@ class EnvioController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
@@ -97,10 +78,6 @@ class EnvioController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
@@ -109,12 +86,17 @@ class EnvioController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $envio = Envio::find($id);
+
+        if(!$envio) {
+            return response()->json([], 404);
+        }
+
+        $envio->delete();
+
+        return Redirect::to('envios');
     }
 }

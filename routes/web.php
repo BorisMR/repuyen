@@ -26,6 +26,11 @@ Route::group(['middleware' =>['web']], function () {
     Route::delete('producto/{id}', 'ProductoController@destroy');
     //Route::get('producto/{id}', 'ProductoController@show');
     //Route::get('producto/{nombre}', 'ProductoController@findByName');
+
+    Route::get('envio', 'EnvioController@create');
+    Route::post('envio', 'EnvioController@store');
+    Route::get('envios', 'EnvioController@index');
+    Route::delete('envio/{id}', 'EnvioController@destroy');
 });
 
 
