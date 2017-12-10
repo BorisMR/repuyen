@@ -25,7 +25,9 @@ class EnvioController extends Controller
      */
     public function create()
     {
-        return view('addEnvio');
+        $productos = Producto::all();
+
+        return view('addEnvio')->with("productos", $productos);
     }
 
     /**
