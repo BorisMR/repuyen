@@ -29,10 +29,12 @@ Route::group(['middleware' =>['web']], function () {
 
     Route::get('envio', 'EnvioController@create');
     Route::post('envio', 'EnvioController@store');
-    Route::get('enviofind','EnvioController@show');
+    Route::post('enviofind','EnvioController@showGuest');
+    //Route::get('envio/{id}','EnvioController@show');
     Route::get('envios', 'EnvioController@index');
     Route::delete('envio/{id}', 'EnvioController@destroy');
 });
+
 
 
 

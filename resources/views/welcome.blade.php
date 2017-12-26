@@ -93,9 +93,9 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('idProducto') ? ' has-error' : '' }}">
-                            <label for="idEnvio" class="col-md-4 control-label">ID ENVIO</label>
+                            <label for="id" class="col-md-4 control-label">ID ENVIO</label>
                             <div class="col-md-6">
-                                <input id="idEnvio" type="text" class="form-control" name="idEnvio" value="{{ old('idEnvio') }}" required autofocus>
+                                <input id="id" class="form-control" name="id" required autofocus>
                             </div>
                         </div>
                         <div class="form-group">

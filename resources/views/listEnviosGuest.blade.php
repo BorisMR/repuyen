@@ -6,9 +6,8 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Control de Envios
+                        Estado de Envio
                     </div>
-                    @guest
 
                     <div class="panel-body">
                         <table class="table">
@@ -18,16 +17,28 @@
                                 <th>Fecha de Creación</th>
                             </tr>
                             @foreach($envios as $envio)
-                                <tr>
-                                    <td>{{ $envio['id'] }}</td>
-                                    <td>{{ $envio['status'] }}</td>
-                                    <td>{{ $envio['created_at'] }}</td>
-                                </tr>
+                            <tr>
+                                <td>{{ $envio['id'] }}</td>
+                                <td>
+                                    @if (($envio->id_status) == 0)
+                                        Registrado en sistema
+                                    @elseif (($envio->id_status) == 1)
+                                        Despachado
+                                    @elseif (($envio->id_status) == 2)
+                                        En transito
+                                    @elseif (($envio->id_status) == 3)
+                                        En entrega
+                                    @elseif (($envio->id_status) == 4)
+                                        Entrega confirmada
+                                    @else
+                                        INDETERMINADO
+                                    @endif
+                                </td>
+                                <td>{{ $envio['created_at'] }}</td>
+                            </tr>
                             @endforeach
                         </table>
-
                     </div>
-                    @endguest
                 </div>
             </div>
         </div>

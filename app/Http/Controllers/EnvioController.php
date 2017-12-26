@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Envio;
 use App\Producto;
-use App\Seguimiento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -16,8 +15,6 @@ class EnvioController extends Controller
     public function index()
     {
         $envios = Envio::all();
-
-        //dd($envios);
 
         return view('listEnvios')->with("envios", $envios);
     }
@@ -72,6 +69,18 @@ class EnvioController extends Controller
 
         //return response()->json($envio);
         return view('listEnviosGuest')->with("envios", $envios);
+    }
+
+    public function showGuest(Request $id)
+    {
+        $envios = Envio::find($id);
+
+        if (is_null($envios)) {
+            return response()->json([], 404);
+        }
+
+        //return response()->json($envio);
+        return view('listEnviosGuest')->with('envios', $envios);
     }
 
     /**
