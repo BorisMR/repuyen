@@ -43,7 +43,8 @@ class ProductoController extends Controller
 
         $producto->save();
 
-        return response()->json($producto);
+        //return response()->json($producto);
+        return Redirect::to('productos');
     }
 
     /**

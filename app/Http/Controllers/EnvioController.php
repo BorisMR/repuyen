@@ -48,8 +48,8 @@ class EnvioController extends Controller
         $envio = new Envio;
 
         $envio->id_producto = $id_producto;
-        $envio->id_seguimiento = $id_seguimiento;
-        $envio->status = empty($status) ? 0 : $status;
+        $envio->id_seguimiento = $id_seguimiento; //todo: puede ser nula?
+        $envio->id_status = empty($status) ? 0 : $status;
 
         $envio->save();
 
@@ -61,13 +61,14 @@ class EnvioController extends Controller
      */
     public function show($id)
     {
-        $envio = Envio::find($id);
+        $envios = Envio::find($id);
 
-        if (is_null($envio)) {
+        if (is_null($envios)) {
             return response()->json([], 404);
         }
 
-        return response()->json($envio);
+        //return response()->json($envio);
+        return view('listEnviosGuest')->with("envios", $envios);
     }
 
     /**

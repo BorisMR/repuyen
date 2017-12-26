@@ -25,13 +25,22 @@
                         <tr>
                             <th>ID</th>
                             <th>Estado</th>
-                            <th>Fecha</th>
+                            <th>Fecha de Creación</th>
+                            <th></th>
                         </tr>
                         @foreach($envios as $envio)
                         <tr>
                             <td>{{ $envio['id'] }}</td>
                             <td>{{ $envio['status'] }}</td>
+                            <td>{{ $envio['created_at'] }}</td>
                             <td>
+                                {{ Form::open(['url' => 'envio/' . $envio->id, 'class' => 'pull-right']) }}
+                                {{ Form::hidden('_method', 'DELETE') }}
+                                {{ Form::button('<span class="glyphicon glyphicon-trash"></span>', [
+                                    'class' => 'btn btn-danger',
+                                    'type' => 'submit'
+                                    ]) }}
+                                {{ Form::close() }}
                             </td>
                         </tr>
                         @endforeach

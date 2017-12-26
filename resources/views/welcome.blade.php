@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Tracking</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -69,7 +69,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/home') }}">Tracking</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
                         <a href="{{ route('register') }}">Register</a>
@@ -79,15 +79,33 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Tracking System
+                </div>
+                <div class="links">
+                    <a href="https://www.enfermerodebolsillo.cl/">EnfermeroDeBolsillo</a>
+                    <a href="http://www.spartanbears.cl/">SpartanBears</a>
                 </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div>
+                    <h3>Buscar Envio</h3>
+
+                    <form class="form-horizontal" method="post" action="enviofind">
+                        {{ csrf_field() }}
+
+                        <div class="form-group{{ $errors->has('idProducto') ? ' has-error' : '' }}">
+                            <label for="idEnvio" class="col-md-4 control-label">ID ENVIO</label>
+                            <div class="col-md-6">
+                                <input id="idEnvio" type="text" class="form-control" name="idEnvio" value="{{ old('idEnvio') }}" required autofocus>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-info">
+                                    Buscar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

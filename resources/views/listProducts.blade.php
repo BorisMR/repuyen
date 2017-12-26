@@ -30,16 +30,11 @@
                         <tr>
                             <td>{{ $producto['nombre'] }}</td>
                             <td>
-                                <!--
-                                <form method="post" action="producto">
-                                    {{ csrf_field() }}
-                                    <input value="{{ $producto['id'] }}" hidden>
-                                    <button class="btn btn-danger" type="submit">Eliminar</button>
-                                </form>-->
                                 {{ Form::open(['url' => 'producto/' . $producto->id, 'class' => 'pull-right']) }}
                                     {{ Form::hidden('_method', 'DELETE') }}
-                                    {{ Form::submit('Eliminar', [
-                                        'class' => 'btn btn-danger'
+                                    {{ Form::button('<span class="glyphicon glyphicon-trash"></span>', [
+                                        'class' => 'btn btn-danger',
+                                        'type' => 'submit'
                                         ]) }}
                                 {{ Form::close() }}
                             </td>

@@ -16,7 +16,7 @@ class CreateEnviosTable extends Migration
         Schema::create('envios', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_producto');
-            $table->integer('id_seguimiento');
+            $table->integer('id_seguimiento')->nullable();
             $table->integer('id_status');
             $table->timestamps();
         });
