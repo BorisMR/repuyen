@@ -17,6 +17,8 @@ class EnvioController extends Controller
     {
         $envios = Envio::all();
 
+        //dd($envios);
+
         return view('listEnvios')->with("envios", $envios);
     }
 
@@ -53,7 +55,8 @@ class EnvioController extends Controller
 
         $envio->save();
 
-        return response()->json($envio);
+        //return response()->json($envio);
+        return Redirect::to('envios');
     }
 
     /**
