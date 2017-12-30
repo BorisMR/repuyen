@@ -26,7 +26,8 @@
                             <th>ID</th>
                             <th>Estado</th>
                             <th>Fecha de Creación</th>
-                            <th></th>
+                            <th>Fecha de Modificación</th>
+                            <th>Opciones</th>
                         </tr>
                         @foreach($envios as $envio)
                         <tr>
@@ -47,6 +48,7 @@
                                 @endif
                             </td>
                             <td>{{ $envio['created_at'] }}</td>
+                            <td>{{ $envio['updated_at'] }}</td>
                             <td>
                                 {{ Form::open(['url' => 'envio/' . $envio->id, 'class' => 'pull-right']) }}
                                 {{ Form::hidden('_method', 'DELETE') }}

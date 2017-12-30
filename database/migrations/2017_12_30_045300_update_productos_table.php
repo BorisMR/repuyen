@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSeguimientosTable extends Migration
+class UpdateProductosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateSeguimientosTable extends Migration
      */
     public function up()
     {
-        Schema::create('seguimientos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('id_user');
-            $table->integer('id_envio')->unsigned();
-            $table->timestamps();
+        Schema::table('productos', function ($table) {
+            $table->string('descripcion');
         });
     }
 
@@ -28,6 +25,8 @@ class CreateSeguimientosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seguimientos');
+        Schema::table('productos', function ($table){
+            $table->dropColumn('descripcion');
+        });
     }
 }

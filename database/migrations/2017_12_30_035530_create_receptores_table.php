@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSeguimientosTable extends Migration
+class CreateReceptoresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,15 @@ class CreateSeguimientosTable extends Migration
      */
     public function up()
     {
-        Schema::create('seguimientos', function (Blueprint $table) {
+        Schema::create('receptores', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_user');
-            $table->integer('id_envio')->unsigned();
+            $table->string('nombre');
+            $table->string('rut');
+            $table->string('direccion');
+            $table->string('email');
+            $table->string('telefono');
+            $table->text('comentario');
+            $table->string('comprobante_deposito');
             $table->timestamps();
         });
     }
@@ -28,6 +33,6 @@ class CreateSeguimientosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seguimientos');
+        Schema::dropIfExists('receptores');
     }
 }

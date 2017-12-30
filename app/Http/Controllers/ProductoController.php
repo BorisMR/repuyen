@@ -26,6 +26,7 @@ class ProductoController extends Controller
     public function store(Request $request)
     {
         $nombre = $request->input('nombre');
+        $descripcion = $request->input('descripcion');
         $producto = Producto::where('nombre', $nombre)->first();
 
         if(!is_null($producto)) {
@@ -40,6 +41,7 @@ class ProductoController extends Controller
         $producto = new Producto;
 
         $producto->nombre = $nombre;
+        $producto->descripcion = $descripcion;
 
         $producto->save();
 

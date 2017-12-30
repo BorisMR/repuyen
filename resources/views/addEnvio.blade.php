@@ -21,9 +21,9 @@
                             </div>
                         @endif
 
-                        <form class="form-horizontal" method="post" action="envio">
+                        <form class="form-horizontal" enctype="multipart/form-data" method="post" action="envio">
                             {{ csrf_field() }}
-
+                            <h4>PRODUCTO</h4>
                             <div class="form-group{{ $errors->has('idProducto') ? ' has-error' : '' }}">
                                 <label for="name" class="col-md-4 control-label">Producto</label>
                                 <div class="col-md-6">
@@ -42,10 +42,60 @@
                                 </div>
                             </div>
                             -->
+
+                            <h4>RECEPTOR</h4>
+                            <br>
+                            <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
+                                <label for="nombre" class="col-md-4 control-label">Nombre</label>
+                                <div class="col-md-6">
+                                    <input id="nombre" type="text" class="form-control" name="nombre" value="{{ old('nombre') }}" required autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group{{ $errors->has('rut') ? ' has-error' : '' }}">
+                                <label for="rut" class="col-md-4 control-label">Rut</label>
+                                <div class="col-md-6">
+                                    <input id="rut" type="text" class="form-control" name="rut" value="{{ old('rut') }}" required autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group{{ $errors->has('direccion') ? ' has-error' : '' }}">
+                                <label for="direccion" class="col-md-4 control-label">Direccion</label>
+                                <div class="col-md-6">
+                                    <input id="direccion" type="text" class="form-control" name="direccion" value="{{ old('direccion') }}" required autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                <label for="email" class="col-md-4 control-label">Email</label>
+                                <div class="col-md-6">
+                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group{{ $errors->has('telefono') ? ' has-error' : '' }}">
+                                <label for="telefono" class="col-md-4 control-label">Telefono</label>
+                                <div class="col-md-6">
+                                    <input id="telefono" type="text" class="form-control" name="telefono" value="{{ old('telefono') }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group{{ $errors->has('comentario') ? ' has-error' : '' }}">
+                                <label for="comentario" class="col-md-4 control-label">Comentario</label>
+                                <div class="col-md-6">
+                                    <!--<input id="comentario" type="text" class="form-control" name="comentario" value="{{ old('comentario') }}" required autofocus>-->
+                                    <textarea id="comentario" name="comentario" class="form-control" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="comprobante" class="col-md-4 control-label">Comprobante</label>
+                                <div class="col-md-6">
+                                    <p class="help-block">Cargue una imagen del comprobante de deposito</p>
+                                    <input data-preview="#preview" name="comprobante" type="file" id="comprobante" hidden="hidden">
+                                    <img class="col-sm-6" id="preview"  src="" ></img>
+                                </div>
+                            </div>
+
+                            <h4>ESTADO</h4>
                             <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
                                 <label for="name" class="col-md-4 control-label">Status</label>
                                 <div class="col-md-6">
-                                    <select id="status" name="status" class="form-control" title="Selector de estado">
+                                    <select id="status" name="status" class="form-control" title="Selector de estado" disabled>
                                         <option value="0" selected>Registrado en sistema</option>
                                         <option value="1">Despachado</option>
                                         <option value="2">En transito</option>

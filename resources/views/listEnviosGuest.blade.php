@@ -17,6 +17,7 @@
                                 <th>ID</th>
                                 <th>Estado</th>
                                 <th>Fecha de Creación</th>
+                                <th>Fecha de Actualización</th>
                             </tr>
                             @foreach($envios as $envio)
                                 <tr>
@@ -37,6 +38,7 @@
                                         @endif
                                     </td>
                                     <td>{{ $envio['created_at'] }}</td>
+                                    <td>{{ $envio['updated_at'] }}</td>
                                 </tr>
                             @endforeach
                         @endif

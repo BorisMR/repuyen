@@ -29,6 +29,12 @@
                                     <input id="nombre" type="text" class="form-control" name="nombre" value="{{ old('nombre') }}" required autofocus>
                                 </div>
                             </div>
+                            <div class="form-group{{ $errors->has('descripcion') ? ' has-error' : '' }}">
+                                <label for="descripcion" class="col-md-4 control-label">Descripción</label>
+                                <div class="col-md-6">
+                                    <input id="descripcion" type="text" class="form-control" name="descripcion" value="{{ old('descripcion') }}" autofocus>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">

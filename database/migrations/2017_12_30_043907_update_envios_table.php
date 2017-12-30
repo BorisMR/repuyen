@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSeguimientosTable extends Migration
+class UpdateEnviosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateSeguimientosTable extends Migration
      */
     public function up()
     {
-        Schema::create('seguimientos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('id_user');
-            $table->integer('id_envio')->unsigned();
-            $table->timestamps();
+        Schema::table('envios', function ($table) {
+            $table->string('id_user');
+            $table->string('id_receptor');
         });
     }
 
@@ -28,6 +26,9 @@ class CreateSeguimientosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seguimientos');
+        Schema::table('envios', function ($table){
+            $table->dropColumn('id_user');
+            $table->dropColumn('id_receptor');
+        });
     }
 }

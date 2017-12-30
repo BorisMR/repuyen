@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Seguimiento extends Model
 {
+    //UNUSED
+
     protected $table = 'seguimientos';
 
     protected $fillable = [
@@ -13,11 +15,13 @@ class Seguimiento extends Model
         'id_envio'
     ];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function envio(){
+    public function envio()
+    {
         return $this->hasOne(Envio::class);
     }
 }
