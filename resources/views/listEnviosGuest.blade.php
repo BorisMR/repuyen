@@ -13,15 +13,13 @@
                         @if( count($envios) === 0 )
                                 <td><b>No se encontró ningún envío con ese ID</b></td>
                         @else
-                            <tr>
-                                <th>ID</th>
-                                <th>Estado</th>
-                                <th>Fecha de Creación</th>
-                                <th>Fecha de Actualización</th>
-                            </tr>
                             @foreach($envios as $envio)
                                 <tr>
+                                    <td><b>ID</b></td>
                                     <td>{{ $envio['id'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Status</b></td>
                                     <td>
                                         @if (($envio->id_status) == 0)
                                             Registrado en sistema
@@ -37,7 +35,12 @@
                                             INDETERMINADO
                                         @endif
                                     </td>
+                                <tr>
+                                        <td><b>Fecha de Creación</b></td>
                                     <td>{{ $envio['created_at'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Fecha de Actualización</b></td>
                                     <td>{{ $envio['updated_at'] }}</td>
                                 </tr>
                             @endforeach

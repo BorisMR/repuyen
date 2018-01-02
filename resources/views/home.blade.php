@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="h4 panel-heading text-center">Dashboard</div>
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -14,8 +14,9 @@
                         </div>
                     @endif
 
-                    <a href="producto">Productos</a>
-                    <a href="envios">Envios</a>
+                    <a class="btn btn-default" href="producto">Productos</a>
+                        <br><br>
+                    <a class="btn btn-default" href="envios">Envios</a>
                 </div>
             </div>
         </div>

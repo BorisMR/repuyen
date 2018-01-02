@@ -7,7 +7,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Control de Productos
-                        <!--<div class="text-right"><a href="productos">Lista de Productos</a></div>-->
+                        <div class="text-right"><a href="/home">Dashboard</a></div>
+                        <div class="text-right"><a href="/producto">Agregar producto</a></div>
                     </div>
                     @guest
 
@@ -24,11 +25,13 @@
                         <table class="table">
                         <tr>
                             <th>Nombre</th>
-                            <th><div class="text-center"></div></th>
+                            <th>Descripción</th>
+                            <th>Opciones</th>
                         </tr>
                         @foreach($productos as $producto)
                         <tr>
                             <td>{{ $producto['nombre'] }}</td>
+                            <td>{{ $producto['descripcion'] }}</td>
                             <td>
                                 {{ Form::open(['url' => 'producto/' . $producto->id, 'class' => 'pull-right']) }}
                                     {{ Form::hidden('_method', 'DELETE') }}

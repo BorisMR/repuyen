@@ -7,6 +7,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Control de Envios
+                        <div class="text-right"><a href="/home">Dashboard</a></div>
                         <div class="text-right"><a href="envio">Generar Envio</a></div>
                     </div>
                     @guest
@@ -49,6 +50,16 @@
                             </td>
                             <td>{{ $envio['created_at'] }}</td>
                             <td>{{ $envio['updated_at'] }}</td>
+                            <td>
+                                {{ Form::open(['url' => 'envio/' . $envio->id, 'class' => 'pull-right', 'method' => 'GET']) }}
+                                {{ Form::hidden('id', $envio->id) }}
+                                {{ Form::hidden('id_receptor', $envio->id_receptor) }}
+                                {{ Form::button('<span class="glyphicon glyphicon-info-sign"> Detalles</span>', [
+                                    'class' => 'btn btn-primary',
+                                    'type' => 'submit'
+                                    ]) }}
+                                {{ Form::close() }}
+                            </td>
                             <td>
                                 {{ Form::open(['url' => 'envio/' . $envio->id, 'class' => 'pull-right']) }}
                                 {{ Form::hidden('_method', 'DELETE') }}

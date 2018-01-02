@@ -7,6 +7,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Control de Envios
+                        <div class="text-right"><a href="/home">Dashboard</a></div>
                         <div class="text-right"><a href="envios">Lista de Envios</a></div>
                     </div>
                     @guest

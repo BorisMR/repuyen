@@ -17,4 +17,9 @@ class Receptor extends Model
         'comentario',
         'comprobante_deposito'
     ];
+
+    public function envio()
+    {
+        return $this->belongsTo(Envio::class);
+    }
 }

@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Envio;
 use App\Producto;
 use App\Receptor;
+use App\User;
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 
 class EnvioController extends Controller
 {
@@ -41,6 +44,7 @@ class EnvioController extends Controller
         $status = $request->input('status');
         $id_emisor = Auth::user()->id;
 
+        $emisor = User::find($id_emisor);
 
         $producto = Producto::find($id_producto);
 
@@ -70,13 +74,12 @@ class EnvioController extends Controller
         $receptor->comprobante_deposito = $comprobante_deposito;
 
         $receptor->save();
-        //todo: buscar receptor por rut, si existe proceder a almacenar envio
         $receptor = Receptor::where('comprobante_deposito', $comprobante)->first();
 
         $envio = new Envio;
 
         $envio->id_producto = $id_producto;
-        $envio->id_seguimiento = $id_seguimiento; //todo: puede ser nula?
+        $envio->id_seguimiento = $id_seguimiento;
         $envio->id_status = empty($status) ? 0 : $status;
         $envio->id_user = $id_emisor; //
         $envio->id_receptor = $receptor->id;
@@ -90,28 +93,41 @@ class EnvioController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        $envios = Envio::find($id);
+        $envio = Envio::find($request->input('id'));
 
-        if (is_null($envios)) {
+        if (is_null($envio)) {
             return response()->json([], 404);
         }
 
-        //return response()->json($envio);
-        return view('listEnviosGuest')->with("envios", $envios);
+        $emisor = User::find($envio->id_user);
+        $receptor = Receptor::find($envio->id_receptor);
+
+        return view('viewEnvioDetalle')->with('id_envio',$envio->id)
+            ->with('status_envio',$envio->id_status)
+            ->with('nombre_emisor',$emisor->name)
+            ->with('cargo_emisor',$emisor->cargo)
+            ->with('rut_receptor',$receptor->id)
+            ->with('nombre_receptor',$receptor->nombre)
+            ->with('direccion_receptor',$receptor->direccion)
+            ->with('fono_receptor',$receptor->telefono)
+            ->with('email_receptor',$receptor->email)
+            ->with('comprobante',$receptor->comprobante_deposito);
     }
 
     public function showGuest(Request $id)
     {
-        $envios = Envio::find($id);
+        $envioData = Envio::find($id);
 
-        if (is_null($envios)) {
+        if (is_null($envioData)) {
             return response()->json([], 404);
         }
 
+        //$receptor = Receptor::find($envio[0]['id_receptor']);
+
         //return response()->json($envio);
-        return view('listEnviosGuest')->with('envios', $envios);
+        return view('listEnviosGuest')->with('envios', $envioData );
     }
 
     /**
@@ -144,6 +160,8 @@ class EnvioController extends Controller
         $receptor = $envio->id_receptor;
         $receptor = Receptor::find($receptor);
         //todo: borrar comprobante
+        Storage::delete(public_path('comprobantes/').$receptor->comprobante_deposito);
+        //dd('no esta borrando imagenes');
         $receptor->delete();
 
         $envio->delete();

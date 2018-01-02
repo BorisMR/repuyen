@@ -28,11 +28,11 @@ class Envio extends Model
 
     public function emisor()
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne('App\User', 'id_user');
     }
 
     public function receptor()
     {
-        return $this->hasOne(Receptor::class);
+        return $this->belongsTo('App\Receptor', 'id_receptor');
     }
 }
