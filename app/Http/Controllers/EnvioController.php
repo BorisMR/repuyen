@@ -133,17 +133,52 @@ class EnvioController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function editForm(Request $request, $id)
     {
-        //
+        $envios = Envio::find($request->input('id'));
+
+        return view('updateStatusEnvio')->with("envios", $envios);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function updateStatus(Request $request)
     {
-        //
+        $envio = Envio::find($request->input('id'));
+
+        $envio->id_status = $request->input('idStatus');
+
+        $envio->save();
+
+        return Redirect::to('envios');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function updateReceptor(Request $request, $id)
+    {
+        $envio = Envio::find($id);
+
+        $receptor = Receptor::find($envio->id_receptor);
+
+        $receptor->nombre = $request->input('nombre');
+        $receptor->rut = $request->input('rut');
+        $receptor->direccion = $request->input('direccion');
+        $receptor->email = $request->input('email');
+        $receptor->telefono = $request->input('telefono');
+        $receptor->comentario = $request->input('comentario');
+
+        if($receptor->comprobante_deposito != $request->comprobante){
+            $comprobante = $receptor->rut.'-'.time().'.'.$request->comprobante->getClientOriginalExtension();
+            $request->comprobante->move(public_path('comprobantes'), $comprobante);
+            $receptor->comprobante_deposito = $comprobante;
+        }
+
+        $receptor->save();
+
+        return Redirect::to('envios');
     }
 
     /**

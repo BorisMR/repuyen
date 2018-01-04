@@ -7,8 +7,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Control de Productos
-                        <div class="text-right"><a href="/home">Dashboard</a></div>
-                        <div class="text-right"><a href="/producto">Agregar producto</a></div>
+                        <div class="text-right"><a href="{{ url('/home') }}">Dashboard</a></div>
+                        <div class="text-right"><a href="{{ url('/producto') }}">Agregar producto</a></div>
                     </div>
                     @guest
 

@@ -7,8 +7,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Control de Envios
-                        <div class="text-right"><a href="/home">Dashboard</a></div>
-                        <div class="text-right"><a href="envio">Generar Envio</a></div>
+                        <div class="text-right"><a href="{{ url('/home') }}">Dashboard</a></div>
+                        <div class="text-right"><a href="{{ url('/envio') }}">Generar Envio</a></div>
                     </div>
                     @guest
 
@@ -21,7 +21,29 @@
                                 {{ session('status') }}
                             </div>
                         @endif
+                            <div>
+                                <h3>Buscar Envio</h3>
 
+                                <form class="form-horizontal" method="post" action="enviofind">
+                                    {{ csrf_field() }}
+
+                                    <div class="form-group{{ $errors->has('idProducto') ? ' has-error' : '' }}">
+                                        <label for="id" class="col-md-4 control-label">ID ENVIO</label>
+                                        <div class="col-md-6">
+                                            <input id="id" class="form-control" name="id" required autofocus>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-md-offset-4">
+                                            <button type="submit" class="btn btn-info">
+                                                Buscar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <br>
                         <table class="table">
                         <tr>
                             <th>ID</th>
@@ -29,6 +51,8 @@
                             <th>Fecha de Creación</th>
                             <th>Fecha de Modificación</th>
                             <th>Opciones</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                         @foreach($envios as $envio)
                         <tr>
@@ -51,10 +75,19 @@
                             <td>{{ $envio['created_at'] }}</td>
                             <td>{{ $envio['updated_at'] }}</td>
                             <td>
+                                {{ Form::open(['url' => 'envioStatus/' . $envio->id, 'class' => 'pull-right', 'method' => 'POST']) }}
+                                {{ Form::hidden('id', $envio->id) }}
+                                {{ Form::button('<span class="glyphicon glyphicon-edit">&nbsp;Estado</span>', [
+                                    'class' => 'btn btn-success',
+                                    'type' => 'submit'
+                                    ]) }}
+                                {{ Form::close() }}
+                            </td>
+                            <td>
                                 {{ Form::open(['url' => 'envio/' . $envio->id, 'class' => 'pull-right', 'method' => 'GET']) }}
                                 {{ Form::hidden('id', $envio->id) }}
                                 {{ Form::hidden('id_receptor', $envio->id_receptor) }}
-                                {{ Form::button('<span class="glyphicon glyphicon-info-sign"> Detalles</span>', [
+                                {{ Form::button('<span class="glyphicon glyphicon-zoom-in"></span>', [
                                     'class' => 'btn btn-primary',
                                     'type' => 'submit'
                                     ]) }}

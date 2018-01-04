@@ -33,6 +33,9 @@ Route::group(['middleware' =>['web']], function () {
     Route::get('envio/{id}','EnvioController@show');
     Route::get('envios', 'EnvioController@index');
     Route::delete('envio/{id}', 'EnvioController@destroy');
+
+    Route::post('envioStatus/{id}', 'EnvioController@editForm');
+    Route::post('status', 'EnvioController@updateStatus');
 });
 
 
